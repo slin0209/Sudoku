@@ -2,6 +2,7 @@
 #include <cstring>
 #include <iostream>
 #include <fstream>
+#include <sys/time.h>
 
 #include "SudokuBoard.hpp"
 
@@ -52,13 +53,21 @@ int main(int argc, char* argv[] )
 	}	
 	inputfile.close();
 
-	std::cout <<"Start to create sudokuboard"<<std::endl;
+	std::cout <<"Start to create sudokuboard!"<<std::endl;
+	struct timeval start, stop;
+	gettimeofday(&start, NULL);
+	
 	SudokuBoard sudoku_board(array);
 	int ret = sudoku_board.run();
+	
+	gettimeofday(&stop, NULL);
+	int msecs = (stop.tv_sec - start.tv_sec) * 1000 + (stop.tv_usec - start.tv_usec)/1000;
+	
 	if(ret == 0)
 	{
 		std::cout<<"We get a solution!"<<std::endl;
 		sudoku_board.output_result();
+		std::cout<<"It took me "<<msecs<<" milliseconds to finish!"<<std::endl;
 		return 0;
 	}else
 	{

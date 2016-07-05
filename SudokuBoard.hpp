@@ -6,7 +6,6 @@
 
 #define BOARD_LINES	9
 #define BOARD_COLUMN	9
-#define BLOCK_TYPES	3
 #define BLOCK_NUM		9
 #define BLOCK_ENTRIES	9
 #define BLOCK_BITMAP	10
@@ -19,7 +18,7 @@ enum block_type
 	BLOCK,
 	VER_LINE,
 	HOR_LINE,
-	BLOCK_TYPE_NUM
+	BLOCK_TYPES
 };
 
 enum value_origin

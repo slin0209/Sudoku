@@ -1,15 +1,15 @@
 CC=g++
-CFLAGS=-I.
-CFLAGS+=-std=c++11
+CPPFLAGS=-I.
+CPPFLAGS+=-std=c++11
 
 DEPS = SudokuBoard.hpp
 OBJ = SudokuBoard.o sudoku_main.o
 
 %.o: %.c $(DEPS)
-	$(CC) -c -o $@ $^ $(CFLAGS)
+	$(CC) -c -o $@ $^ $(CPPFLAGS)
 
 sudoku: $(OBJ)
-	$(CC) -o $@ $^ $(CFLAGS)	
+	$(CC) -o $@ $^ $(CPPFLAGS)	
 
 .PHONY: clean
 
