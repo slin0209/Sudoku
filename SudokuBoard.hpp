@@ -21,12 +21,6 @@ enum block_type
 	BLOCK_TYPES
 };
 
-enum value_origin
-{
-	INPUT,
-	GUESS
-};
-
 enum bitmap_action
 {
 	SET,
@@ -48,16 +42,14 @@ private:
 		void clear_val() {val = 0;};
 		int guess_val();
 		void clear_history();
-		void setup(int val, value_origin type, int x, int y);
+		void setup(int val,  int x, int y);
 		void display();
 		void clear_bitmap();
 		void update_bitmap(int bit, bitmap_action action, block_type btype);
-		value_origin type() {return origin_type;};
 
 		int x,y;
 	private:
 		int val;
-		value_origin origin_type;
 		int bitmap[BLOCK_TYPES][SPOT_BITMAP];  // 1 means number can't be selected, 0 means potential number
 		int potential_left;
 		int history[TRY_NUMS];

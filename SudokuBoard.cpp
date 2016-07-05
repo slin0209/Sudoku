@@ -11,7 +11,6 @@ extern bool debug_on;
 
 SudokuBoard::SudokuBoard(int array[][BOARD_COLUMN])
 {
-	value_origin type = GUESS;
 	blanks = BOARD_LINES * BOARD_COLUMN;
 	if(debug_on)
 		std::cout<< "Start constructor of SudokuBoard!" <<std::endl;	
@@ -22,12 +21,10 @@ SudokuBoard::SudokuBoard(int array[][BOARD_COLUMN])
 		{
 			if(array[i][j] != 0)
 			{
-				type = INPUT;
 				blanks--;
-			}else
-				type = GUESS;
+			}
 			
-			spot_array[i][j].setup(array[i][j], type, i, j); 
+			spot_array[i][j].setup(array[i][j], i, j); 
 		}
 	}
 
@@ -84,7 +81,7 @@ void SudokuBoard::prepare()
 	{
 		for( int j = 0;j < BOARD_COLUMN;j++)
 		{
-			if(spot_array[i][j].type() == INPUT)
+			if(spot_array[i][j].show_val() != 0)
 			{
 				spot_array[i][j].clear_bitmap();				
 			}else
@@ -450,10 +447,9 @@ void SudokuBoard::spot::clear_history()
 	last_guess = -1;
 }
 
-void SudokuBoard::spot::setup(int val, value_origin type, int x, int y)
+void SudokuBoard::spot::setup(int val, int x, int y)
 {
 	this->val = val;
-	origin_type = type;
 	std::memset(bitmap, 0, SPOT_BITMAP*sizeof(int)*BLOCK_TYPES);
 	potential_left = TRY_NUMS;
 	std::memset(history, 0, TRY_NUMS*sizeof(int));
@@ -464,7 +460,7 @@ void SudokuBoard::spot::setup(int val, value_origin type, int x, int y)
 
 void SudokuBoard::spot::display()
 {
-	std::cout << "Spot=" <<x<<","<<y<<",  val=" <<val <<",  type=" <<origin_type <<",  potential_left=";
+	std::cout << "Spot=" <<x<<","<<y<<",  val=" <<val <<",  potential_left=";
 		std::cout<<potential_left<<", last_guess="<<last_guess<<std::endl;
 	
 	for(int j = 0;j<3;j++)
